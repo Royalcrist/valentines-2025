@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💝 Valentine's Day Proposal
 
-## Getting Started
+A cute and interactive Valentine's Day proposal web app built with Next.js, React, and TailwindCSS. Perfect for asking that special someone to be your Valentine in a fun and memorable way!
 
-First, run the development server:
+## ✨ Features
+
+- 🎵 Background music with romantic piano melody
+- 💖 Beautiful floating hearts animation
+- 😢 Dynamic reactions to "No" responses
+- 🎉 Celebratory animation when they say "Yes"
+- 📱 Fully responsive design
+- 🎨 Gorgeous gradient backgrounds
+- 🖱️ Interactive buttons with fun animations
+- 🌈 Cute GIFs for different responses
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/valentines-2025.git
+cd valentines-2025
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎮 How It Works
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- The main page displays a cute Valentine's proposal with a "Yes" and "No" button
+- If they click "No":
+  - The "No" button will start moving around, making it harder to click
+  - The "Yes" button grows larger
+  - Background changes to show falling tears
+  - GIFs change to sad reactions
+- If they click "Yes":
+  - Displays a celebration screen
+  - Shows happy GIFs
+  - Floating hearts animation
+  - Background music continues playing
 
-## Learn More
+## 🛠️ Built With
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js](https://nextjs.org/) - React framework
+- [React](https://reactjs.org/) - UI library
+- [TailwindCSS](https://tailwindcss.com/) - CSS framework
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
+- [Chakra UI](https://chakra-ui.com/) - Component library
+- [Lucide Icons](https://lucide.dev/) - Icon library
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💕 Customization
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+You can customize various aspects of the app:
 
-## Deploy on Vercel
+- Change the background music by updating the audio source URL
+- Modify the GIFs in the `happyGifs` and `sadGifs` arrays
+- Adjust the messages in the `noMessages` array
+- Update colors in the gradient backgrounds
+- Modify button animations and transitions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open source and available under the MIT License.
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the issues page.
+
+## 💖 Show Your Support
+
+Give a ⭐️ if you like this project!
+
+---
+
+Made with 💝 for Valentine's Day 2025

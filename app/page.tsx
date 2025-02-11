@@ -216,7 +216,7 @@ const MusicPlayer = () => {
     <>
       <audio
         ref={audioRef}
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3"
+        src="/romantic-pop1-297157.mp3"
         preload="auto"
         onLoadedData={handleLoadedData}
         onError={(e) => {
@@ -229,16 +229,7 @@ const MusicPlayer = () => {
             duration: 3000,
           });
         }}
-      >
-        <source
-          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3"
-          type="audio/mpeg"
-        />
-        <source
-          src="https://assets.mixkit.co/music/preview/mixkit-sweet-love-message-951.mp3"
-          type="audio/mpeg"
-        />
-      </audio>
+      />
       <Button
         size="sm"
         variant="ghost"
