@@ -1,6 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --cursor-default: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none' stroke='pink' stroke-width='2'><polygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/></svg>");
+  --cursor-pointer: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'><path fill='hotpink' d='M12 2L9.5 9H2l6 4.5L5.5 21l6.5-5 6.5 5-2.5-7.5L22 9h-7.5z'/><circle cx='12' cy='12' r='3' fill='yellow'/></svg>");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,6 +34,7 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  cursor: var(--cursor-default) 16 16, auto !important;
 }
 
 a {
@@ -39,4 +46,14 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+button,
+a,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+[tabindex="0"] {
+  cursor: var(--cursor-pointer) 16 16, pointer !important;
 }
