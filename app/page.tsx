@@ -142,29 +142,64 @@ const HeartBackground = () => {
   );
 };
 
+// Add type definition for WebKit Audio Context
+interface IWindow extends Window {
+  webkitAudioContext: typeof AudioContext;
+}
+
 const MusicPlayer = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // Initialize audio settings
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.25;
-      audioRef.current.loop = true;
-    }
+    const audio = audioRef.current;
+    if (!audio) return;
 
-    const handleFirstInteraction = () => {
-      if (audioRef.current && isMuted) {
-        audioRef.current
-          .play()
-          .then(() => {
-            setIsMuted(false);
-            document.removeEventListener("click", handleFirstInteraction);
-          })
-          .catch((error) => {
-            console.error("Playback failed:", error);
-            setIsLoaded(true);
-          });
+    // Set initial properties
+    audio.volume = 0.25;
+    audio.loop = true;
+    audio.preload = "auto";
+
+    // Load the audio file
+    audio.load();
+
+    const handleCanPlayThrough = () => {
+      setIsLoaded(true);
+      toaster.create({
+        title: "🎵 Music ready!",
+        description: "Click the sound button to play romantic music",
+        type: "info",
+        duration: 3000,
+      });
+    };
+
+    audio.addEventListener("canplaythrough", handleCanPlayThrough);
+    return () =>
+      audio.removeEventListener("canplaythrough", handleCanPlayThrough);
+  }, []);
+
+  // Handle user interaction for audio playback
+  useEffect(() => {
+    const handleFirstInteraction = async () => {
+      const audio = audioRef.current;
+      if (!audio || !isMuted) return;
+
+      try {
+        // Create a new Audio Context (required for some browsers)
+        const AudioContext =
+          window.AudioContext ||
+          (window as unknown as IWindow).webkitAudioContext;
+        const audioContext = new AudioContext();
+        await audioContext.resume();
+
+        await audio.play();
+        setIsMuted(false);
+        document.removeEventListener("click", handleFirstInteraction);
+      } catch (error) {
+        console.error("Audio playback failed:", error);
+        setIsLoaded(true);
       }
     };
 
@@ -172,44 +207,35 @@ const MusicPlayer = () => {
     return () => document.removeEventListener("click", handleFirstInteraction);
   }, [isMuted]);
 
-  const toggleMute = () => {
-    if (!audioRef.current) return;
+  const toggleMute = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
 
     try {
       if (isMuted) {
-        audioRef.current
-          .play()
-          .then(() => {
-            setIsMuted(false);
-            setIsLoaded(true);
-          })
-          .catch(() => {
-            setIsLoaded(true);
-            toaster.create({
-              title: "🎵 Click anywhere to enable music",
-              description: "Browser requires a page interaction first",
-              type: "info",
-              duration: 3000,
-            });
-          });
+        // Create and resume AudioContext before playing
+        const AudioContext =
+          window.AudioContext ||
+          (window as unknown as IWindow).webkitAudioContext;
+        const audioContext = new AudioContext();
+        await audioContext.resume();
+
+        await audio.play();
+        setIsMuted(false);
+        setIsLoaded(true);
       } else {
-        audioRef.current.pause();
+        audio.pause();
         setIsMuted(true);
       }
     } catch (error) {
       console.error("Audio control error:", error);
-      setIsLoaded(true);
+      toaster.create({
+        title: "🎵 Click anywhere to enable music",
+        description: "Browser requires a page interaction first",
+        type: "info",
+        duration: 3000,
+      });
     }
-  };
-
-  const handleLoadedData = () => {
-    setIsLoaded(true);
-    toaster.create({
-      title: "🎵 Music ready!",
-      description: "Click the button to play romantic music",
-      type: "info",
-      duration: 3000,
-    });
   };
 
   return (
@@ -218,14 +244,13 @@ const MusicPlayer = () => {
         ref={audioRef}
         src="/romantic-pop1-297157.mp3"
         preload="auto"
-        onLoadedData={handleLoadedData}
         onError={(e) => {
           console.error("Audio loading error:", e);
           setIsLoaded(true);
           toaster.create({
             title: "🎵 Music unavailable",
             description: "Don't worry, the love is still in the air! ❤️",
-            type: "info",
+            type: "error",
             duration: 3000,
           });
         }}
